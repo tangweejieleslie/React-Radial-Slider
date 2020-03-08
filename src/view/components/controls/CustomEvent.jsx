@@ -83,10 +83,19 @@ class CustomEvent extends Component {
   //   THE ABOVE IS HANDLING MOUSE MOVEMENT
 
   setTransform = degree => {
-    this.setState({
-      transform: "rotate(" + degree + ",200,200)"
-    });
-    console.log(this.state.transform);
+
+    // limit max = 130 220, 180 +30 -30 => 150 - 210
+
+    if(degree > 150 && degree <210){
+
+    } else {
+        this.setState({
+            transform: "rotate(" + degree + ",200,200)"
+          });
+          console.log(this.state.transform);
+    }
+
+
   };
 
   renderLine() {
