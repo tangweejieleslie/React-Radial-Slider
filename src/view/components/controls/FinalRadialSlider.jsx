@@ -6,6 +6,7 @@ const CENTER_X = SVG_WIDTH / 2;
 const CENTER_Y = SVG_HEIGHT / 2;
 const RADIUS = SVG_WIDTH / 2 - 20;
 const CIRCLE_STROKE_WIDTH = 10;
+const WHEEL_SCROLL_VALUE = 10;
 
 class FinalRadialSlider extends Component {
   state = {
@@ -16,7 +17,7 @@ class FinalRadialSlider extends Component {
   };
 
   handleMouseDown = event => {
-    console.log("detect mouse down");
+    // console.log("detect mouse down");
     event.preventDefault();
     window.addEventListener("mousemove", this.handleMouseMove);
     window.addEventListener("mouseup", this.handleMouseUp);
@@ -32,22 +33,20 @@ class FinalRadialSlider extends Component {
       isMouseMove: true
     });
 
-    // TODO: degree calculation needs to be verified
+    const node = document.getElementById("SliderArea").getBoundingClientRect();
+    const CircleCenterX = (node.left + node.right) / 2;
+    const CircleCenterY = (node.top + node.bottom) / 2;
+    // console.log(node);
+    // console.log(CircleCenterX, CircleCenterY);
     // console.log(event);
-
-
-    const node = document.getElementById('SliderArea').getBoundingClientRect();
-    const CircleCenterX = (node.left+node.right)/2;
-    const CircleCenterY = (node.top+node.bottom)/2;
-    console.log(node);
-    console.log(CircleCenterX, CircleCenterY);
-    console.log(event);
-
-
 
     let degree;
     // https://blog.plover.com/prog/atan2.html
-    degree = 90+(Math.atan2(event.pageY - CircleCenterY, event.pageX - CircleCenterX) * 180/Math.PI);
+    degree =
+      90 +
+      (Math.atan2(event.pageY - CircleCenterY, event.pageX - CircleCenterX) *
+        180) /
+        Math.PI;
 
     this.setTransform(degree);
 
@@ -67,24 +66,29 @@ class FinalRadialSlider extends Component {
     window.removeEventListener("mouseup", this.handleMouseUp);
   };
 
+//   TODO: Fix scrolling bug
   handleWheel = event => {
-    event.preventDefault();
+    // event.preventDefault();
 
     var tempDegree = this.state.degree;
     if (event.deltaY < 0) {
-    //   console.log("scrolling up: " + this.state.degree);
-      tempDegree = tempDegree + 1;
+      console.log("scrolling up: " + this.state.degree);
+      tempDegree = (tempDegree + WHEEL_SCROLL_VALUE);
+      //   Guard to prevent reaching unexpected range
+
       this.setState({
         degree: tempDegree
       });
       this.setTransform(tempDegree);
     } else if (event.deltaY > 0) {
-    //   console.log("scrolling down: " + this.state.degree);
-      tempDegree = tempDegree - 1;
+      console.log("scrolling down: " + this.state.degree);
+      tempDegree = (tempDegree - WHEEL_SCROLL_VALUE);
+      //   Guard to prevent reaching unexpected range
+
       this.setState({
         degree: tempDegree
       });
-      this.setTransform(tempDegree);
+      this.setTransform(tempDegree%360);
     }
   };
   //   THE ABOVE IS HANDLING MOUSE MOVEMENT
@@ -93,13 +97,13 @@ class FinalRadialSlider extends Component {
     // limit max = 130 220, 180 +30 -30 => 150 - 210
 
     if (degree > 139 && degree < 219) {
-      //   window.removeEventListener("mousemove", this.handleMouseMove);
-    //   console.log("Not listening!");
+      window.removeEventListener("mousemove", this.handleMouseMove);
+      console.log("Not listening!");
     } else {
       this.setState({
         transform: "rotate(" + degree + ",200,200)"
       });
-    //   console.log(this.state.transform);
+      //   console.log(this.state.transform);
     }
   };
 
@@ -126,7 +130,7 @@ class FinalRadialSlider extends Component {
         cx={CENTER_X}
         cy={CENTER_Y}
         r={RADIUS - 20}
-        strokeWidth={CIRCLE_STROKE_WIDTH*3}
+        strokeWidth={CIRCLE_STROKE_WIDTH * 3}
         stroke="#dfdfdf"
         fill="none"
         onWheel={this.handleWheel}
