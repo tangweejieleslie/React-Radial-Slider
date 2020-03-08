@@ -1,24 +1,19 @@
 import React, { Component } from "react";
 
-let WIDTH = 400;
-let HEIGHT = 400;
-let FILL = "none";
-let CX = WIDTH / 2;
-let CY = HEIGHT / 2;
-let RADIUS = WIDTH / 2 - 20;
-let STROKE_WIDTH = 7;
+const SVG_WIDTH = 400;
+const SVG_HEIGHT = 400;
+const CENTER_X = SVG_WIDTH / 2;
+const CENTER_Y = SVG_HEIGHT / 2;
+const RADIUS = SVG_WIDTH / 2 - 20;
+const CIRCLE_STROKE_WIDTH = 10;
 
-class CustomEvent extends Component {
+class FinalRadialSlider extends Component {
   state = {
     degree: 0,
     transform: "rotate(0)",
     isMouseDown: false,
     isMouseMove: false
   };
-
-  // https://github.com/dmitrymorozoff/react-circle-slider/blob/master/src/circle-slider/index.tsx
-  //   https://stackoverflow.com/questions/34483940/best-way-to-run-mousemove-only-on-mousedown-with-pure-javascript
-  // https://codepen.io/lchngr/pen/HqGFC  << Mouse wheel
 
   handleMouseDown = event => {
     console.log("detect mouse down");
@@ -32,17 +27,27 @@ class CustomEvent extends Component {
 
   handleMouseMove = event => {
     event.preventDefault();
-    console.log("detect mouse move");
+    // console.log("detect mouse move");
     this.setState({
       isMouseMove: true
     });
 
-    var degree =
-      90 +
-      (Math.atan2(event.pageY - WIDTH / 2, event.pageX - WIDTH / 2) * 180) /
-        Math.PI;
-// TODO: this calculation needs to be verified
+    // TODO: degree calculation needs to be verified
+    // console.log(event);
 
+
+    const node = document.getElementById('SliderArea').getBoundingClientRect();
+    const CircleCenterX = (node.left+node.right)/2;
+    const CircleCenterY = (node.top+node.bottom)/2;
+    console.log(node);
+    console.log(CircleCenterX, CircleCenterY);
+    console.log(event);
+
+
+
+    let degree;
+    // https://blog.plover.com/prog/atan2.html
+    degree = 90+(Math.atan2(event.pageY - CircleCenterY, event.pageX - CircleCenterX) * 180/Math.PI);
 
     this.setTransform(degree);
 
@@ -53,7 +58,7 @@ class CustomEvent extends Component {
 
   handleMouseUp = event => {
     event.preventDefault();
-    console.log("detect mouse up");
+
     this.setState({
       isMouseMove: false,
       isMouseDown: false
@@ -64,17 +69,17 @@ class CustomEvent extends Component {
 
   handleWheel = event => {
     event.preventDefault();
-    console.log("detect wheel");
+
     var tempDegree = this.state.degree;
     if (event.deltaY < 0) {
-      console.log("scrolling up: " + this.state.degree);
+    //   console.log("scrolling up: " + this.state.degree);
       tempDegree = tempDegree + 1;
       this.setState({
         degree: tempDegree
       });
       this.setTransform(tempDegree);
     } else if (event.deltaY > 0) {
-      console.log("scrolling down: " + this.state.degree);
+    //   console.log("scrolling down: " + this.state.degree);
       tempDegree = tempDegree - 1;
       this.setState({
         degree: tempDegree
@@ -87,22 +92,22 @@ class CustomEvent extends Component {
   setTransform = degree => {
     // limit max = 130 220, 180 +30 -30 => 150 - 210
 
-    if ((degree > 139 && degree < 219)){
-    //   window.removeEventListener("mousemove", this.handleMouseMove);
-      console.log("Not listening!");
+    if (degree > 139 && degree < 219) {
+      //   window.removeEventListener("mousemove", this.handleMouseMove);
+    //   console.log("Not listening!");
     } else {
-
       this.setState({
         transform: "rotate(" + degree + ",200,200)"
       });
-      console.log(this.state.transform);
+    //   console.log(this.state.transform);
     }
   };
 
-  renderLine() {
+  // Render Methods
+  renderSlider() {
     return (
       <line
-        id="Slider"
+        id="SliderButton"
         x1="200"
         y1="30"
         x2="200"
@@ -114,18 +119,16 @@ class CustomEvent extends Component {
       ></line>
     );
   }
-
   renderSliderArea() {
     return (
       <circle
-        id="Slider"
-        cx={CX}
-        cy={CY}
+        id="SliderArea"
+        cx={CENTER_X}
+        cy={CENTER_Y}
         r={RADIUS - 20}
-        strokeWidth={STROKE_WIDTH + 20}
+        strokeWidth={CIRCLE_STROKE_WIDTH*3}
         stroke="#dfdfdf"
         fill="none"
-        mask="url(#MaskSlider)"
         onWheel={this.handleWheel}
       ></circle>
     );
@@ -134,17 +137,14 @@ class CustomEvent extends Component {
   render() {
     return (
       <div>
-        <svg height={400} width={400}>
+        <h1> Slider </h1>
+        <svg height={SVG_HEIGHT} width={SVG_WIDTH} id="SVG_BOX">
           {this.renderSliderArea()}
-          {this.renderLine()}
+          {this.renderSlider()}
         </svg>
-        <input type="text" onChangeCapture={this.updateDegree}></input>
-        <button onClick={this.updateTransform}>Submit</button>
-        <br></br>
-        <h1>{this.state.degree}</h1>
       </div>
     );
   }
 }
 
-export default CustomEvent;
+export default FinalRadialSlider;
