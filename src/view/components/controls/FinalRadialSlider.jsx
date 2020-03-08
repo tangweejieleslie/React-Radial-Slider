@@ -66,14 +66,14 @@ class FinalRadialSlider extends Component {
     window.removeEventListener("mouseup", this.handleMouseUp);
   };
 
-//   TODO: Fix scrolling bug
+  //   TODO: Fix scrolling bug
   handleWheel = event => {
     // event.preventDefault();
 
     var tempDegree = this.state.degree;
     if (event.deltaY < 0) {
       console.log("scrolling up: " + this.state.degree);
-      tempDegree = (tempDegree + WHEEL_SCROLL_VALUE);
+      tempDegree = tempDegree + WHEEL_SCROLL_VALUE;
       //   Guard to prevent reaching unexpected range
 
       this.setState({
@@ -82,13 +82,13 @@ class FinalRadialSlider extends Component {
       this.setTransform(tempDegree);
     } else if (event.deltaY > 0) {
       console.log("scrolling down: " + this.state.degree);
-      tempDegree = (tempDegree - WHEEL_SCROLL_VALUE);
+      tempDegree = tempDegree - WHEEL_SCROLL_VALUE;
       //   Guard to prevent reaching unexpected range
 
       this.setState({
         degree: tempDegree
       });
-      this.setTransform(tempDegree%360);
+      this.setTransform(tempDegree % 360);
     }
   };
   //   THE ABOVE IS HANDLING MOUSE MOVEMENT
@@ -138,6 +138,59 @@ class FinalRadialSlider extends Component {
     );
   }
 
+  renderSliderPrompt() {
+    return (
+      <svg>
+        <defs>
+          <linearGradient id="HotColdGradient">
+            <stop offset="0%" stopColor="#3495E4" />
+            <stop offset="100%" stopColor="#E4656E" />
+          </linearGradient>
+          <linearGradient id="MaskGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="white" />
+            <stop offset="87%" stopColor="white" />
+            <stop offset="88%" stopColor="black" />
+            <stop offset="100%" stopColor="black" />
+          </linearGradient>
+          <linearGradient id="BlackOnly" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="white" stopOpacity="0" />
+            <stop offset="87%" stopColor="white" stopOpacity="0" />
+            <stop offset="88%" stopColor="#586369" />
+            <stop offset="100%" stopColor="#586369" />
+          </linearGradient>
+        </defs>
+        <mask id="MaskPrompt">
+          <circle
+            cx={CENTER_X}
+            cy={CENTER_Y}
+            r={RADIUS}
+            stroke="url('#MaskGradient')"
+            strokeWidth={CIRCLE_STROKE_WIDTH}
+          ></circle>
+        </mask>
+        {/* GRADIENT PORTION TO INDICATE TEMPERATURE SELECTION */}
+        <circle
+            cx={CENTER_X}
+            cy={CENTER_Y}
+          r={RADIUS}
+          stroke="url('#HotColdGradient')"
+          strokeWidth={CIRCLE_STROKE_WIDTH}
+          fill="none"
+          mask="url(#MaskPrompt)"
+        />        
+                {/* BLACK PORTION TO INDICATE NO SELECTION ZONE */}
+                <circle
+            cx={CENTER_X}
+            cy={CENTER_Y}
+          r={RADIUS}
+          stroke="url('#BlackOnly')"
+          strokeWidth={CIRCLE_STROKE_WIDTH}
+          fill="none"
+        />
+      </svg>
+    );
+  }
+
   render() {
     return (
       <div>
@@ -145,6 +198,7 @@ class FinalRadialSlider extends Component {
         <svg height={SVG_HEIGHT} width={SVG_WIDTH} id="SVG_BOX">
           {this.renderSliderArea()}
           {this.renderSlider()}
+          {this.renderSliderPrompt()}
         </svg>
       </div>
     );
