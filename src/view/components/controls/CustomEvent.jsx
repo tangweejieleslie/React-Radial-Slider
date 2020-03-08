@@ -10,7 +10,7 @@ let STROKE_WIDTH = 7;
 
 class CustomEvent extends Component {
   state = {
-    degree: 10,
+    degree: 0,
     transform: "rotate(0)",
     isMouseDown: false,
     isMouseMove: false
@@ -18,6 +18,7 @@ class CustomEvent extends Component {
 
   // https://github.com/dmitrymorozoff/react-circle-slider/blob/master/src/circle-slider/index.tsx
 //   https://stackoverflow.com/questions/34483940/best-way-to-run-mousemove-only-on-mousedown-with-pure-javascript
+// https://codepen.io/lchngr/pen/HqGFC  << Mouse wheel
 
   handleMouseDown = event => {
     console.log("detect mouse down");
@@ -42,6 +43,9 @@ class CustomEvent extends Component {
         Math.PI;
 
     this.setTransform(degree);
+    this.setState({
+        degree: degree
+    })
   };
 
   handleMouseUp = event => {
@@ -55,6 +59,27 @@ class CustomEvent extends Component {
     window.removeEventListener("mouseup", this.handleMouseUp);
   };
 
+  handleWheel = event =>{
+    event.preventDefault();
+    console.log("detect wheel");
+    var tempDegree = this.state.degree;
+    if (event.deltaY < 0) {
+          console.log("scrolling up: " + this.state.degree);
+          tempDegree = tempDegree +1;
+        this.setState({
+            degree: tempDegree
+        })
+        this.setTransform(tempDegree);
+
+      } else if (event.deltaY > 0) {
+          console.log("scrolling down: " + this.state.degree);
+          tempDegree = tempDegree -1
+        this.setState({
+            degree: tempDegree 
+        })
+        this.setTransform(tempDegree);
+      }
+  }
   //   THE ABOVE IS HANDLING MOUSE MOVEMENT
 
   setTransform = degree => {
@@ -76,6 +101,7 @@ class CustomEvent extends Component {
         transform={this.state.transform}
         onMouseDown={this.handleMouseDown}
         onMouseUp={this.handleMouseUp}
+        
 
       ></line>
     );
@@ -92,6 +118,7 @@ class CustomEvent extends Component {
         stroke="gray"
         fill="none"
         mask="url(#MaskSlider)"
+        onWheel={this.handleWheel}
       ></circle>
     );
   }
