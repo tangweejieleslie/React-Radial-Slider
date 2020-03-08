@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
-
 import GradientPrompt from './components/controls/GradientPrompt'
-
 class ControlsPanel extends Component {
     render(){
-        return(
-            <GradientPrompt ></GradientPrompt>
+        return (
+          <div
+            style={{
+              display: "flex",
+              "flex-direction": "row",
+              "justify-content": "center"
+            }}
+          >
+
+            <GradientPrompt></GradientPrompt>
+          </div>
         );
     }
 }
