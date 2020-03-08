@@ -26,8 +26,8 @@ class GradientPrompt extends Component {
           <defs>
 
             <linearGradient id="HotColdGradient">
-              <stop offset="0%" stop-color="blue" />
-              <stop offset="100%" stop-color="red" />
+              <stop offset="0%" stop-color="#3495E4" />
+              <stop offset="100%" stop-color="#E4656E" />
             </linearGradient>
 
             <linearGradient id="MaskGradient" x1="0%" y1="0%" x2="0%" y2="100%">
@@ -39,9 +39,9 @@ class GradientPrompt extends Component {
 
             <linearGradient id="BlackOnly" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stop-color="white" stop-opacity="0" />
-              <stop offset="84%" stop-color="white" stop-opacity="0" />
-              <stop offset="85%" stop-color="black" />
-              <stop offset="100%" stop-color="black" />
+              <stop offset="83%" stop-color="white" stop-opacity="0" />
+              <stop offset="84%" stop-color="#586369" />
+              <stop offset="100%" stop-color="#586369" />
             </linearGradient>
           </defs>
 {/* Mask to hide unnecessary portions */}
