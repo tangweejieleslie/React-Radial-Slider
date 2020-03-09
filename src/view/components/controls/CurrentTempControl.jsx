@@ -40,6 +40,9 @@ class CurrentTempControl extends Component {
       </div>
     );
   }
+
+// Event handling implemented with reference to https://github.com/dmitrymorozoff/react-circle-slider
+
   handleWheel = event => {
 
     var newPos = this.state.sliderXPos;
@@ -99,6 +102,7 @@ class CurrentTempControl extends Component {
 
     if (newTemp < 32) {
       newTemp = 32;
+      // send();
     } else if (newTemp > 100) {
       newTemp = 100;
     }

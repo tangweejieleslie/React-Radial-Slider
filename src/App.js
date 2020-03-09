@@ -3,7 +3,9 @@ import './App.css';
 import { Machine } from 'xstate';
 import { useMachine } from '@xstate/react/';
 import MainViewPanel from './view/MainViewPanel';
+import StateMachine from './StateMachine';
 
+console.log(StateMachine)
 // https://xstate.js.org/docs/guides/parallel.html
 // https://xstate.js.org/docs/guides/hierarchical.html
 
@@ -76,6 +78,11 @@ const CTChangeStates = {
 }
 
 const ThermostatMachine = new Machine({
+  context: {
+    mode: "off",
+    targetTemp: 72,
+    currentTemp: 72
+  },
   id: 'ThermostatMachine',
   initial: 'ListenForTemperatureChange',
   states: {
