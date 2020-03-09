@@ -13,7 +13,7 @@ src/
 |   └── thermostat.js
 ├── view/
 |   ├── components/
-|   |   └── controls/
+|   |   ├── controls/
 |   |   |   ├── controls.css
 |   |   |   ├── CurrentTempControlView.jsx
 |   |   |   └── RadialSliderView.jsx
@@ -21,12 +21,39 @@ src/
 |   |       ├── CurrentTemperatureView.jsx
 |   |       ├── ModeView.jsx
 |   |       └── TargetTemperatureView.jsx
-|   └── header.html
+|   └── MainViewPanel.jsx
 |── App.js
 └── MachineConfig.js
 
 ```
 
+## src/model/thermostat.js 
+Contains the business logic for the application. 
+It gets invoke by the radial slider view which passes in the Target and Current Temperature.
+It returns the computed mode.
+
+## src/view/components/controls
+This folder contains the main UI controls. 
+CurrentTempControlView.jsx contains UI and controls for current temperature. This is for testing purposes.
+RadialSliderView.jsx contains UI and controls for target temperature. This is the main feature of the Radial Thermostat. 
+
+## src/view/components/info
+This folders contains JSX classes which handles the rendering of SVG elements. 
+The current temperature display, mode svg icon and target temperature are all rendered from files in this folder.
+
+## src/view/MainViewPanel.jsx
+This file is the anchor element which renders the other elements. 
+After refactoring, this MainView Panel would render CurrentTempControlView.
+CurrentTempControlView would render RadialSliderView.
+RadialSliderView would then render the rest of the elements in src/view/components/info.
+This is to structure the code in a way that takes advantage of React's one-way data binding. 
+By structuring the data flow from parents to children, the code gets simplified.
+
+## src/App.js
+This is the entry point of the application. 
+
+## arc/MachineConfig.js
+This contains the state machine configuration for xstate
 
 
 <hr>
