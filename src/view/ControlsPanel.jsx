@@ -1,28 +1,38 @@
-import React, { Component } from 'react';
-// import GradientPrompt from './components/controls/GradientPrompt'
-// import SmallEvent from './components/controls/SmallEvent'
-// import CustomEvent from './components/controls/CustomEvent'
-// import RadialSliderView from './components/controls/RadialSliderView'
-import FinalRadialSlider from './components/controls/FinalRadialSlider'
+import React, { Component } from "react";
+import FinalRadialSlider from "./components/controls/FinalRadialSlider";
 
 class ControlsPanel extends Component {
-    render(){
-        return (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center"
-            }}
-          >
+  state = {};
 
-            {/* <GradientPrompt></GradientPrompt>
-            <SmallEvent></SmallEvent> */}
-            {/* <CustomEvent></CustomEvent> */}
-            <FinalRadialSlider></FinalRadialSlider>
-          </div>
-        );
-    }
+  render() {
+    return (
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center"
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center"
+            
+          }}
+        >
+                  <FinalRadialSlider></FinalRadialSlider>
+                  <h2>Change Current Temperature</h2>
+        <form>
+          <input type="text" onChange={this.updateTextBox}></input>
+          <button onClick={this.updateCurrentTemp}>Submit</button>
+        </form>
+        </div>
+
+      </div>
+    );
+  }
 }
 
 export default ControlsPanel;

@@ -153,7 +153,7 @@ class FinalRadialSlider extends Component {
           y1="30"
           x2="200"
           y2="70"
-          stroke-linecap="round"
+          strokeLinecap="round"
           stroke="#f0f0f0"
           strokeWidth="14"
           transform={this.state.transform}
@@ -164,7 +164,7 @@ class FinalRadialSlider extends Component {
           y1="32"
           x2="200"
           y2="68"
-          stroke-linecap="round"
+          strokeLinecap="round"
           stroke="#ffb732"
           strokeWidth="10"
           fill="orange"
@@ -252,9 +252,9 @@ class FinalRadialSlider extends Component {
       <text
         x={fontCenterX}
         y={fontCenterY}
-        class="TargetedTemperature"
-        text-anchor="middle"
-        alignment-baseline="middle"
+        className="TargetedTemperature"
+        textAnchor="middle"
+        alignmentBaseline="middle"
         fill="#fafafa"
       >
         {Math.round(TargetedTemperature)}
@@ -271,9 +271,9 @@ class FinalRadialSlider extends Component {
         x={fontCenterX}
         y={fontCenterY}
         dy="60"
-        class="CurrentTemperature"
-        text-anchor="middle"
-        alignment-baseline="middle"
+        className="CurrentTemperature"
+        textAnchor="middle"
+        alignmentBaseline="middle"
         fill="#fafafa"
       >
         Current: {Math.round(CurrentTemperature)}
@@ -322,7 +322,7 @@ class FinalRadialSlider extends Component {
     return (
       <div>
         <h1> Slider </h1>
-        <div class="flexbox">
+        <div className="flexbox">
         <svg height={SVG_HEIGHT} width={SVG_WIDTH} id="SVG_BOX">
           {this.renderBackground()}
           {this.renderSliderArea()}
@@ -331,7 +331,7 @@ class FinalRadialSlider extends Component {
 
           {this.renderTargetedTemperature(50)}
           {this.renderCurrentTemperature(10)}
-          {this.renderSun("pink")}
+          {this.renderSun("#D6D6D6")}
         </svg>
         </div>
 
