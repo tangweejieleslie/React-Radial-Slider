@@ -5,12 +5,6 @@ import ModeView from "../info/ModeView";
 import {getModeColor} from "../../../model/thermostat.js"
 import "./controls.css";
 
-import MachineConfig from '../../../MachineConfig';
-import { useMachine } from '@xstate/react/';
-import { Machine } from "xstate";
-
-const ThermostatMachine = new Machine(MachineConfig);
-
 const SVG_WIDTH = 400;
 const SVG_HEIGHT = 400;
 const CENTER_X = SVG_WIDTH / 2;
