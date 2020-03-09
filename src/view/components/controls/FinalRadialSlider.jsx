@@ -7,7 +7,7 @@ const CENTER_X = SVG_WIDTH / 2;
 const CENTER_Y = SVG_HEIGHT / 2;
 const RADIUS = SVG_WIDTH / 2 - 20;
 const CIRCLE_STROKE_WIDTH = 10;
-const WHEEL_SCROLL_VALUE = 1;
+const WHEEL_SCROLL_VALUE = Math.round(280/30);
 
 class FinalRadialSlider extends Component {
   constructor(props) {
@@ -19,7 +19,12 @@ class FinalRadialSlider extends Component {
       isMouseDown: false,
       isMouseMove: false,
       currentTemperature: this.props.currentTemp,
-      targetTemperature: "72"
+      targetTemperature: "72",
+      mode: "off",
+      modeColor: "green",
+      dt: 2,
+      dtCool: 1.5,
+      dtHeat: 1
     };
   }
 
@@ -149,6 +154,7 @@ class FinalRadialSlider extends Component {
       // console.log("Not listening!");
     }
     this.computeTargetTemperature();
+    this.updateMode();
   };
 
   // Render Methods
@@ -310,8 +316,6 @@ class FinalRadialSlider extends Component {
     return (
       <svg
         fill={color}
-        // fill="#fafafa"
-        // fill="black"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         width={logowidth}
@@ -350,6 +354,38 @@ class FinalRadialSlider extends Component {
     });
   }
 
+  updateMode(){
+    let mode = "off"
+
+    let UpperBoundTemp = this.state.targetTemperature + this.state.dt + this.state.dtCool;
+    let LowerBoundTemp = this.state.targetTemperature - this.state.dt - this.state.dtHeat;
+    let OffUpperBound = this.state.targetTemperature + (this.state.dt - this.state.dtCool);
+    let OffLowerBound = this.state.targetTemperature - (this.state.dt - this.state.dtHeat);
+
+    if(this.state.currentTemperature > UpperBoundTemp) {
+
+      mode = "cool"; 
+      this.setState({
+        mode: mode,
+        modeColor: "#3495E4"
+      })
+    }
+    else if (this.state.currentTemperature < LowerBoundTemp) {
+      mode = "heat";
+      this.setState({
+        mode: mode,
+        modeColor: "#E4656E"
+      })
+    }
+    else if (this.state.currentTemperature < OffUpperBound && this.state.currentTemperature > OffLowerBound) { 
+      mode="off";
+      this.setState({
+        mode: mode,
+        modeColor: "#D6D6D6"
+      })
+    }
+  }
+
   render() {
     return (
       <div>
@@ -363,7 +399,7 @@ class FinalRadialSlider extends Component {
 
             {this.renderTargetedTemperature(this.state.targetTemperature)}
             {this.renderCurrentTemperature(this.state.currentTemperature)}
-            {this.renderSun("#D6D6D6")}
+            {this.renderSun(this.state.modeColor)}
           </svg>
         </div>
       </div>
