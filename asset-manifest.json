@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/reactradial/static/css/main.19dd2faf.chunk.css",
-    "main.js": "/reactradial/static/js/main.3a2f4d0e.chunk.js",
-    "main.js.map": "/reactradial/static/js/main.3a2f4d0e.chunk.js.map",
-    "runtime-main.js": "/reactradial/static/js/runtime-main.73f28e62.js",
-    "runtime-main.js.map": "/reactradial/static/js/runtime-main.73f28e62.js.map",
-    "static/js/2.00cabf9b.chunk.js": "/reactradial/static/js/2.00cabf9b.chunk.js",
-    "static/js/2.00cabf9b.chunk.js.map": "/reactradial/static/js/2.00cabf9b.chunk.js.map",
-    "index.html": "/reactradial/index.html",
-    "precache-manifest.5c197cb2dbc164fbc5c85aced77d183d.js": "/reactradial/precache-manifest.5c197cb2dbc164fbc5c85aced77d183d.js",
-    "service-worker.js": "/reactradial/service-worker.js",
-    "static/css/main.19dd2faf.chunk.css.map": "/reactradial/static/css/main.19dd2faf.chunk.css.map",
-    "static/js/2.00cabf9b.chunk.js.LICENSE.txt": "/reactradial/static/js/2.00cabf9b.chunk.js.LICENSE.txt"
+    "main.css": "/React-Radial-Slider/static/css/main.19dd2faf.chunk.css",
+    "main.js": "/React-Radial-Slider/static/js/main.bb2b6804.chunk.js",
+    "main.js.map": "/React-Radial-Slider/static/js/main.bb2b6804.chunk.js.map",
+    "runtime-main.js": "/React-Radial-Slider/static/js/runtime-main.7d0823b5.js",
+    "runtime-main.js.map": "/React-Radial-Slider/static/js/runtime-main.7d0823b5.js.map",
+    "static/js/2.00cabf9b.chunk.js": "/React-Radial-Slider/static/js/2.00cabf9b.chunk.js",
+    "static/js/2.00cabf9b.chunk.js.map": "/React-Radial-Slider/static/js/2.00cabf9b.chunk.js.map",
+    "index.html": "/React-Radial-Slider/index.html",
+    "precache-manifest.a1ff65a709627cd2ac5c6fbc56fd2bd8.js": "/React-Radial-Slider/precache-manifest.a1ff65a709627cd2ac5c6fbc56fd2bd8.js",
+    "service-worker.js": "/React-Radial-Slider/service-worker.js",
+    "static/css/main.19dd2faf.chunk.css.map": "/React-Radial-Slider/static/css/main.19dd2faf.chunk.css.map",
+    "static/js/2.00cabf9b.chunk.js.LICENSE.txt": "/React-Radial-Slider/static/js/2.00cabf9b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.73f28e62.js",
+    "static/js/runtime-main.7d0823b5.js",
     "static/js/2.00cabf9b.chunk.js",
     "static/css/main.19dd2faf.chunk.css",
-    "static/js/main.3a2f4d0e.chunk.js"
+    "static/js/main.bb2b6804.chunk.js"
   ]
 }
