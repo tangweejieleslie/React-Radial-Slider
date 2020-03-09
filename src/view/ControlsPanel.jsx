@@ -40,8 +40,8 @@ class ControlsPanel extends Component {
         <h2>Change Current Temperature</h2>
         <form>
           <input type="text" onChange={this.handleChange}></input>
-          <button onClick={this.updateCurrentTemp}>Submit</button>
-          {this.state.currentTemp}
+          <button onClick={this.updateCurrentTemp}>Update Temperature</button>
+          {/* {this.state.currentTemp} */}
         </form>
       </div>
     );
