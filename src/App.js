@@ -3,10 +3,15 @@ import logo from './logo.svg';
 import './App.css';
 
 import ControlsPanel from './view/ControlsPanel'
+import ControlsPanelView from './view/ControlsPanelView'
 
 function App() {
   return (
-    <ControlsPanel></ControlsPanel>
+    <div>
+    {/* <ControlsPanel></ControlsPanel> */}
+    <ControlsPanelView></ControlsPanelView>
+    </div>
+
   );
 }
 

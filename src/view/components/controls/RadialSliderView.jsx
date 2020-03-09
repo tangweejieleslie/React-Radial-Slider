@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import "./controls.css";
+import TargetTemperatureView from "../info/TargetTemperatureView";
+import CurrentTemperatureView from "../info/CurrentTemperatureView";
+import ModeView from "../info/ModeView";
 
+import "./controls.css";
 
 const SVG_WIDTH = 400;
 const SVG_HEIGHT = 400;
@@ -8,9 +11,9 @@ const CENTER_X = SVG_WIDTH / 2;
 const CENTER_Y = SVG_HEIGHT / 2;
 const RADIUS = SVG_WIDTH / 2 - 20;
 const CIRCLE_STROKE_WIDTH = 10;
-const WHEEL_SCROLL_VALUE = Math.round(280/30);
+const WHEEL_SCROLL_VALUE = Math.round(280 / 30);
 
-class FinalRadialSlider extends Component {
+class RadialSliderView extends Component {
   constructor(props) {
     super(props);
 
@@ -19,27 +22,16 @@ class FinalRadialSlider extends Component {
       transform: "rotate(64,200,200)",
       isMouseDown: false,
       isMouseMove: false,
-      currentTemperature: this.props.currentTemp,
       targetTemperature: 72,
-      mode: "off",
-      modeColor: "#D6D6D6",
-      dt: 2.0,
-      dtCool: 1.5,
-      dtHeat: 1.0
+      currentTemperature: 72
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     return {
       currentTemperature: Number(nextProps.currentTemp)
-    };  
+    };
   }
-  componentDidUpdate(prevProps){
-    if ( prevProps.currentTemp !== this.props.currentTemp ) {
-      this.updateMode();
-    }
-  }
-
 
   handleMouseDown = event => {
     // console.log("detect mouse down");
@@ -62,19 +54,19 @@ class FinalRadialSlider extends Component {
     const CircleCenterX = (node.left + node.right) / 2;
     const CircleCenterY = (node.top + node.bottom) / 2;
 
+    // https://blog.plover.com/prog/atan2.html
     let radian = Math.atan2(
       event.pageY - CircleCenterY,
       event.pageX - CircleCenterX
     );
 
-    let degree;
-    // https://blog.plover.com/prog/atan2.html
-    degree = 90 + (radian * 180) / Math.PI;
+    // 90 degree offset
+    let degree = 90 + (radian * 180) / Math.PI;
 
     this.setState({
       degree: degree
     });
-    this.setTransform(degree);
+    this.setTransform(degree); //TODO: hook up
   };
 
   handleMouseUp = event => {
@@ -93,41 +85,38 @@ class FinalRadialSlider extends Component {
 
     var tempDegree = this.state.degree;
     if (event.deltaY < 0) {
-      // console.log("scrolling up: " + this.state.degree);
       tempDegree = tempDegree + WHEEL_SCROLL_VALUE;
+
       //   Guard to prevent reaching unexpected range
       if (tempDegree > 220) {
+        // Transform 270 to -90 on scrolling up
         if (tempDegree >= 270) {
           tempDegree = -90;
         }
       } else if (tempDegree > 140 && tempDegree < 180) {
+        // If scrolling up into range, reset to 140
         tempDegree = 140;
       }
-      this.setState({
-        degree: tempDegree
-      });
-      this.setTransform(tempDegree);
     } else if (event.deltaY > 0) {
-      // console.log("scrolling down: " + this.state.degree);
       tempDegree = tempDegree - WHEEL_SCROLL_VALUE;
+
+      //   Transform -90 to 270 on scrolling down
       if (tempDegree < -90) {
         tempDegree = 270;
       }
+      // If scrolling down into range, reset to 220
       if (tempDegree > 180 && tempDegree <= 220) {
         tempDegree = 220;
       }
-      //   Guard to prevent reaching unexpected range
-
-      this.setState({
-        degree: tempDegree
-      });
-      this.setTransform(tempDegree);
     }
+
+    this.setState({
+      degree: tempDegree
+    });
+    this.setTransform(tempDegree);
   };
 
   setTransform = degree => {
-    // limit max = 130 220, 180 +30 -30 => 150 - 210
-
     if (degree > 0 && degree < 140) {
       this.setState({
         transform: "rotate(" + degree + ",200,200)"
@@ -150,7 +139,6 @@ class FinalRadialSlider extends Component {
       });
 
       window.alert("Target temperature must be >=50 AND <=80");
-      // console.log("Stop listening for mousemove");
     } else if (degree > 140 && degree <= 180) {
       window.removeEventListener("mousemove", this.handleMouseMove);
       this.setState({
@@ -158,11 +146,37 @@ class FinalRadialSlider extends Component {
         degree: 140
       });
       window.alert("Target temperature must be >=50 AND <=80");
-      // console.log("Not listening!");
     }
     this.computeTargetTemperature();
-    this.updateMode();
+    // this.updateMode();
   };
+
+  computeTargetTemperature() {
+    let degree = this.state.degree;
+    // console.log(degree);
+
+    degree = Math.round(degree);
+
+    // Transform the above mapping into some continuum: the range is now from -140 to 140
+    degree = degree + 141; // now the range = 1 to 281
+    if (degree > 220) {
+      degree = degree - 360;
+    }
+
+    if (degree < 0) {
+      degree = degree + 360;
+    }
+
+    // temp = 50 to 80
+    let degreePerUnitTemp = 30 / 280;
+
+    let temperature = degreePerUnitTemp * degree + 50;
+    temperature = Math.round(temperature);
+    this.setState({
+      targetTemperature: temperature
+    });
+    // this.updateMode();
+  }
 
   // Render Methods
   renderSlider() {
@@ -263,44 +277,6 @@ class FinalRadialSlider extends Component {
     );
   }
 
-  // https://stackoverflow.com/questions/28128491/svg-center-text-in-circle
-  renderTargetedTemperature(TargetedTemperature) {
-    let fontCenterX = CENTER_X;
-    let fontCenterY = CENTER_Y;
-
-    return (
-      <text
-        x={fontCenterX}
-        y={fontCenterY}
-        className="TargetedTemperature"
-        textAnchor="middle"
-        alignmentBaseline="middle"
-        fill="#fafafa"
-      >
-        {Math.round(TargetedTemperature)}
-      </text>
-    );
-  }
-
-  renderCurrentTemperature(CurrentTemperature) {
-    let fontCenterX = CENTER_X;
-    let fontCenterY = CENTER_Y;
-
-    return (
-      <text
-        x={fontCenterX}
-        y={fontCenterY}
-        dy="60"
-        className="CurrentTemperature"
-        textAnchor="middle"
-        alignmentBaseline="middle"
-        fill="#fafafa"
-      >
-        Current: {Math.round(CurrentTemperature)}
-      </text>
-    );
-  }
-
   renderBackground() {
     return (
       <circle
@@ -315,118 +291,25 @@ class FinalRadialSlider extends Component {
     );
   }
 
-  // https://icons8.com/icons/set/sun
-  renderSun(color) {
-    const logowidth = 30;
-    const logoheight = 30;
-
-    return (
-      <svg
-        fill={color}
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        width={logowidth}
-        height={logoheight}
-        x={CENTER_X - logowidth / 2}
-        y={CENTER_Y - logoheight / 2 + 95}
-      >
-        <path d="M 11 0 L 11 3 L 13 3 L 13 0 L 11 0 z M 4.2226562 2.8085938 L 2.8085938 4.2226562 L 4.9296875 6.34375 L 6.34375 4.9296875 L 4.2226562 2.8085938 z M 19.777344 2.8085938 L 17.65625 4.9296875 L 19.070312 6.34375 L 21.191406 4.2226562 L 19.777344 2.8085938 z M 12 5 C 8.1458514 5 5 8.1458514 5 12 C 5 15.854149 8.1458514 19 12 19 C 15.854149 19 19 15.854149 19 12 C 19 8.1458514 15.854149 5 12 5 z M 12 7 C 14.773268 7 17 9.2267316 17 12 C 17 14.773268 14.773268 17 12 17 C 9.2267316 17 7 14.773268 7 12 C 7 9.2267316 9.2267316 7 12 7 z M 0 11 L 0 13 L 3 13 L 3 11 L 0 11 z M 21 11 L 21 13 L 24 13 L 24 11 L 21 11 z M 4.9296875 17.65625 L 2.8085938 19.777344 L 4.2226562 21.191406 L 6.34375 19.070312 L 4.9296875 17.65625 z M 19.070312 17.65625 L 17.65625 19.070312 L 19.777344 21.191406 L 21.191406 19.777344 L 19.070312 17.65625 z M 11 21 L 11 24 L 13 24 L 13 21 L 11 21 z" />
-      </svg>
-    );
-  }
-
-  computeTargetTemperature() {
-    let degree = this.state.degree;
-    // console.log(degree);
-
-    degree = Math.round(degree);
-
-    // Transform the above mapping into some continuum: the range is now from -140 to 140
-    degree = degree + 141; // now the range = 1 to 281
-    if (degree > 220) {
-      degree = degree - 360;
-    }
-
-    if (degree < 0) {
-      degree = degree + 360;
-    }
-
-    // temp = 50 to 80
-    let degreePerUnitTemp = 30 / 280;
-    
-    let temperature = degreePerUnitTemp * degree + 50;
-    temperature = Math.round(temperature);
-    this.setState({
-      targetTemperature: temperature
-    });
-    this.updateMode();
-  }
-
-  updateMode(){
-    let mode;
-    // console.log(this.state);
-
-    let UpperBoundTemp = this.state.targetTemperature + this.state.dt + this.state.dtCool;
-    let LowerBoundTemp = this.state.targetTemperature - this.state.dt - this.state.dtHeat;
-    let OffUpperBound = this.state.targetTemperature + (this.state.dt - this.state.dtCool);
-    let OffLowerBound = this.state.targetTemperature - (this.state.dt - this.state.dtHeat);
-    // console.log(this.state.targetTemperature);
-
-    // console.log("Upperbound: " + UpperBoundTemp + " Lower Bound:" + LowerBoundTemp + " Off lower: " + OffLowerBound + " Off Upper: " +  OffUpperBound);
-
-    if(this.state.currentTemperature > UpperBoundTemp) {
-      // console.log(this.state.currentTemperature + "," + UpperBoundTemp );
-      mode = "cool"; 
-      this.setState({
-        mode: mode,
-        modeColor: "#3495E4"
-      })
-    }
-    else if (this.state.currentTemperature < LowerBoundTemp) {
-      mode = "heat";
-      // console.log(2);
-      this.setState({
-        mode: mode,
-        modeColor: "#E4656E"
-      })
-    }
-    else if (this.state.currentTemperature < OffUpperBound && this.state.currentTemperature > OffLowerBound) { 
-      mode="off";
-      // console.log(this.state.currentTemperature + ", " + OffUpperBound + "," + OffLowerBound);
-      this.setState({
-        mode: mode,
-        modeColor: "#D6D6D6"
-      })
-    }
-  }
-
   render() {
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
-        <h1> Thermostat Widget </h1>
-        <h3> Done by: Tang Wee Jie Leslie A0160164N</h3>
-        <div className="flexbox">
-          <svg height={SVG_HEIGHT} width={SVG_WIDTH} id="SVG_BOX">
-            {this.renderBackground()}
-            {this.renderSliderArea()}
-            {this.renderSliderPrompt()}
-            {this.renderSlider()}
+      <svg height={SVG_HEIGHT} width={SVG_WIDTH} id="SVG_BOX">
+        {this.renderBackground()}
+        {this.renderSliderArea()}
+        {this.renderSliderPrompt()}
+        {this.renderSlider()}
+        <TargetTemperatureView
+          targetTemp={this.state.targetTemperature}
+        ></TargetTemperatureView>
 
-            {this.renderTargetedTemperature(this.state.targetTemperature)}
-            {this.renderCurrentTemperature(this.state.currentTemperature)}
-            {this.renderSun(this.state.modeColor)}
-          </svg>
-        </div>
-      </div>
+        <CurrentTemperatureView
+          currentTemp={this.state.currentTemperature}
+        ></CurrentTemperatureView>
+
+        <ModeView color={this.state.modeColor}></ModeView>
+      </svg>
     );
   }
 }
 
-export default FinalRadialSlider;
+export default RadialSliderView;
