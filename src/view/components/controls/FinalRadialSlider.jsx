@@ -21,7 +21,7 @@ class FinalRadialSlider extends Component {
       currentTemperature: this.props.currentTemp,
       targetTemperature: "72",
       mode: "off",
-      modeColor: "green",
+      modeColor: "#D6D6D6",
       dt: 2,
       dtCool: 1.5,
       dtHeat: 1
@@ -31,8 +31,14 @@ class FinalRadialSlider extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     return {
       currentTemperature: nextProps.currentTemp
-    };
+    };  
   }
+  componentDidUpdate(prevProps){
+    if ( prevProps.currentTemp !== this.props.currentTemp ) {
+      this.updateMode();
+    }
+  }
+
 
   handleMouseDown = event => {
     // console.log("detect mouse down");
