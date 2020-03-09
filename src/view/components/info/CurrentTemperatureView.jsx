@@ -34,6 +34,7 @@ class CurrentTemperatureView extends Component {
         fill="#fafafa"
       >
         Current: {Math.round(CurrentTemperature)}
+        {/* &deg;F */}
       </text>
     );
   }

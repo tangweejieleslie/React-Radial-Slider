@@ -28,12 +28,12 @@ class CurrentTempControl extends Component {
         ></RadialSliderView>
         <h2>Update Current Temperature</h2>
         <div>
-          <strong>32F</strong>
+          <strong>32&deg;F</strong>
           <svg width="250" height="50">
             {this.renderSliderLine()}
             {this.renderSliderButton()}
           </svg>
-          <strong>100F</strong>
+          <strong>100&deg;F</strong>
         </div>
 
         {this.renderControls()}

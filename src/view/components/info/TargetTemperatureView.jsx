@@ -4,9 +4,6 @@ const SVG_WIDTH = 400;
 const SVG_HEIGHT = 400;
 const CENTER_X = SVG_WIDTH / 2;
 const CENTER_Y = SVG_HEIGHT / 2;
-const RADIUS = SVG_WIDTH / 2 - 20;
-const CIRCLE_STROKE_WIDTH = 10;
-const WHEEL_SCROLL_VALUE = Math.round(280 / 30);
 
 class TargetTemperatureView extends Component {
   constructor(props) {
@@ -38,6 +35,7 @@ class TargetTemperatureView extends Component {
         fill="#fafafa"
       >
         {Math.round(TargetedTemperature)}
+        {/* &deg;F */}
       </text>
     );
   }
