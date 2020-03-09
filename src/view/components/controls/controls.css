@@ -1,0 +1,13 @@
+.TargetedTemperature{
+    font-size: 100px;
+    font-weight: bold;
+}
+
+.CurrentTemperature{
+    font-size: 24px;
+    font-weight: 500;
+}
+
+#SVG_BOX{
+    display: flex;
+}

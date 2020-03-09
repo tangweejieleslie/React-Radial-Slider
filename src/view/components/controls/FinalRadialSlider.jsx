@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./controls.css";
 
 const SVG_WIDTH = 400;
 const SVG_HEIGHT = 400;
@@ -75,25 +76,32 @@ class FinalRadialSlider extends Component {
       // console.log("scrolling up: " + this.state.degree);
       tempDegree = tempDegree + WHEEL_SCROLL_VALUE;
       //   Guard to prevent reaching unexpected range
-      if(tempDegree > 220){
-        if(tempDegree>=270){tempDegree=-90}
+      if (tempDegree > 220) {
+        if (tempDegree >= 270) {
+          tempDegree = -90;
+        }
+      } else if (tempDegree > 140 && tempDegree < 180) {
+        tempDegree = 140;
       }
-      else if(tempDegree > 140 && tempDegree<180){ tempDegree = 140};
-        this.setState({
-          degree: tempDegree
-        });
-        this.setTransform(tempDegree);
+      this.setState({
+        degree: tempDegree
+      });
+      this.setTransform(tempDegree);
     } else if (event.deltaY > 0) {
-        // console.log("scrolling down: " + this.state.degree);
-        tempDegree = tempDegree - WHEEL_SCROLL_VALUE;
-        if(tempDegree <-90){ tempDegree = 270};
-        if(tempDegree >180 && tempDegree <=220){ tempDegree = 220};
-        //   Guard to prevent reaching unexpected range
+      // console.log("scrolling down: " + this.state.degree);
+      tempDegree = tempDegree - WHEEL_SCROLL_VALUE;
+      if (tempDegree < -90) {
+        tempDegree = 270;
+      }
+      if (tempDegree > 180 && tempDegree <= 220) {
+        tempDegree = 220;
+      }
+      //   Guard to prevent reaching unexpected range
 
-        this.setState({
-          degree: tempDegree
-        });
-        this.setTransform(tempDegree);
+      this.setState({
+        degree: tempDegree
+      });
+      this.setTransform(tempDegree);
     }
   };
   //   THE ABOVE IS HANDLING MOUSE MOVEMENT
@@ -113,7 +121,7 @@ class FinalRadialSlider extends Component {
       this.setState({
         transform: "rotate(" + degree + ",200,200)"
       });
-    } 
+    }
     // OUT OF RANGE HANDLING
     else if (degree >= 180 && degree < 220) {
       window.removeEventListener("mousemove", this.handleMouseMove);
@@ -121,11 +129,10 @@ class FinalRadialSlider extends Component {
         transform: "rotate(" + 222 + ",200,200)",
         degree: 220
       });
-      
+
       window.alert("You are moving out of range");
       // console.log("Stop listening for mousemove");
-    } 
-    else if (degree > 140 && degree <= 180) {
+    } else if (degree > 140 && degree <= 180) {
       window.removeEventListener("mousemove", this.handleMouseMove);
       this.setState({
         transform: "rotate(" + 138 + ",200,200)",
@@ -133,23 +140,39 @@ class FinalRadialSlider extends Component {
       });
       window.alert("You are moving out of range");
       // console.log("Not listening!");
-    } 
+    }
   };
 
   // Render Methods
   renderSlider() {
     return (
-      <line
-        id="SliderButton"
-        x1="200"
-        y1="30"
-        x2="200"
-        y2="70"
-        style={{ stroke: "black", strokeWidth: 10 }}
-        transform={this.state.transform}
-        onMouseDown={this.handleMouseDown}
-        onMouseUp={this.handleMouseUp}
-      ></line>
+      <svg>
+        <line
+          x1="200"
+          y1="30"
+          x2="200"
+          y2="70"
+          stroke-linecap="round"
+          stroke="#f0f0f0"
+          strokeWidth="14"
+          transform={this.state.transform}
+        ></line>        
+        <line
+          id="SliderButton"
+          x1="200"
+          y1="32"
+          x2="200"
+          y2="68"
+          stroke-linecap="round"
+          stroke="#ffb732"
+          strokeWidth="10"
+          fill="orange"
+          transform={this.state.transform}
+          onMouseDown={this.handleMouseDown}
+          onMouseUp={this.handleMouseUp}
+        ></line>
+
+      </svg>
     );
   }
   renderSliderArea() {
@@ -160,7 +183,7 @@ class FinalRadialSlider extends Component {
         cy={CENTER_Y}
         r={RADIUS - 20}
         strokeWidth={CIRCLE_STROKE_WIDTH * 3}
-        stroke="#dfdfdf"
+        stroke="#D6D6D6"
         fill="none"
         onWheel={this.handleWheel}
       ></circle>
@@ -220,19 +243,71 @@ class FinalRadialSlider extends Component {
     );
   }
 
+  // https://stackoverflow.com/questions/28128491/svg-center-text-in-circle
+  renderTargetedTemperature(TargetedTemperature) {
+    let fontCenterX = CENTER_X;
+    let fontCenterY = CENTER_Y;
+
+    return (
+      <text
+        x={fontCenterX}
+        y={fontCenterY}
+        class="TargetedTemperature"
+        text-anchor="middle"
+        alignment-baseline="middle"
+        fill="#fafafa"
+      >
+        {Math.round(TargetedTemperature)}
+      </text>
+    );
+  }
+
+  renderCurrentTemperature(CurrentTemperature) {
+    let fontCenterX = CENTER_X;
+    let fontCenterY = CENTER_Y;
+
+    return (
+      <text
+        x={fontCenterX}
+        y={fontCenterY}
+        dy="60"
+        class="CurrentTemperature"
+        text-anchor="middle"
+        alignment-baseline="middle"
+        fill="#fafafa"
+      >
+        Current: {Math.round(CurrentTemperature)}
+      </text>
+    );
+  }
+
+  renderBackground() {
+    return (
+      <circle
+        id="CircleBackground"
+        cx={CENTER_X}
+        cy={CENTER_Y}
+        r={RADIUS}
+        strokeWidth={CIRCLE_STROKE_WIDTH * 3}
+        stroke="none"
+        fill="#586369"
+      ></circle>
+    );
+  }
 
   render() {
     return (
       <div>
         <h1> Slider </h1>
-          <svg height={SVG_HEIGHT} width={SVG_WIDTH} id="SVG_BOX">
-          
+        <svg height={SVG_HEIGHT} width={SVG_WIDTH} id="SVG_BOX">
+          {this.renderBackground()}
           {this.renderSliderArea()}
-          {this.renderSlider()}
           {this.renderSliderPrompt()}
-          <h1>72</h1>
+          {this.renderSlider()}
+          
+          {this.renderTargetedTemperature(50)}
+          {this.renderCurrentTemperature(10)}
         </svg>
-        
       </div>
     );
   }
