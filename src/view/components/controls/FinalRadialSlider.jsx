@@ -220,16 +220,19 @@ class FinalRadialSlider extends Component {
     );
   }
 
+
   render() {
     return (
       <div>
         <h1> Slider </h1>
-        <svg height={SVG_HEIGHT} width={SVG_WIDTH} id="SVG_BOX">
+          <svg height={SVG_HEIGHT} width={SVG_WIDTH} id="SVG_BOX">
+          
           {this.renderSliderArea()}
           {this.renderSlider()}
           {this.renderSliderPrompt()}
+          <h1>72</h1>
         </svg>
-        <h2>{this.state.degree}</h2>
+        
       </div>
     );
   }
