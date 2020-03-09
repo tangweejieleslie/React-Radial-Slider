@@ -3,17 +3,6 @@ import CurrentTempControl from "./components/controls/CurrentTempControl";
 
 
 class MainViewPanel extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentTemp: 111,
-      targetTemp: 222,
-      sliderXPos: 123,
-      color: "pink"
-    };
-  }
-
   render() {
     return (
       <div
@@ -24,7 +13,6 @@ class MainViewPanel extends Component {
           alignItems: "center"
         }}
       >
-
         <CurrentTempControl></CurrentTempControl>
       </div>
     );

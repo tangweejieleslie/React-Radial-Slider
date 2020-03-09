@@ -1,4 +1,7 @@
 // https://css-tricks.com/using-react-and-xstate-to-build-a-sign-in-form/
+// https://xstate.js.org/docs/guides/parallel.html
+// https://xstate.js.org/docs/guides/hierarchical.html
+
 const MachineConfig = {
     context: {
         mode: "off",
