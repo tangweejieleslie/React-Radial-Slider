@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/React-Radial-Slider/static/css/main.19dd2faf.chunk.css",
-    "main.js": "/React-Radial-Slider/static/js/main.951ff444.chunk.js",
-    "main.js.map": "/React-Radial-Slider/static/js/main.951ff444.chunk.js.map",
+    "main.js": "/React-Radial-Slider/static/js/main.c8b32b6f.chunk.js",
+    "main.js.map": "/React-Radial-Slider/static/js/main.c8b32b6f.chunk.js.map",
     "runtime-main.js": "/React-Radial-Slider/static/js/runtime-main.7d0823b5.js",
     "runtime-main.js.map": "/React-Radial-Slider/static/js/runtime-main.7d0823b5.js.map",
     "static/js/2.00cabf9b.chunk.js": "/React-Radial-Slider/static/js/2.00cabf9b.chunk.js",
     "static/js/2.00cabf9b.chunk.js.map": "/React-Radial-Slider/static/js/2.00cabf9b.chunk.js.map",
     "index.html": "/React-Radial-Slider/index.html",
-    "precache-manifest.43c55f0c43982582bf6138a0acf4c0df.js": "/React-Radial-Slider/precache-manifest.43c55f0c43982582bf6138a0acf4c0df.js",
+    "precache-manifest.220e6812a233b3b3fd2c8403a6e3c741.js": "/React-Radial-Slider/precache-manifest.220e6812a233b3b3fd2c8403a6e3c741.js",
     "service-worker.js": "/React-Radial-Slider/service-worker.js",
     "static/css/main.19dd2faf.chunk.css.map": "/React-Radial-Slider/static/css/main.19dd2faf.chunk.css.map",
     "static/js/2.00cabf9b.chunk.js.LICENSE.txt": "/React-Radial-Slider/static/js/2.00cabf9b.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.7d0823b5.js",
     "static/js/2.00cabf9b.chunk.js",
     "static/css/main.19dd2faf.chunk.css",
-    "static/js/main.951ff444.chunk.js"
+    "static/js/main.c8b32b6f.chunk.js"
   ]
 }
