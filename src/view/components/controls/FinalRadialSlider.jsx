@@ -6,7 +6,7 @@ const CENTER_X = SVG_WIDTH / 2;
 const CENTER_Y = SVG_HEIGHT / 2;
 const RADIUS = SVG_WIDTH / 2 - 20;
 const CIRCLE_STROKE_WIDTH = 10;
-const WHEEL_SCROLL_VALUE = 10;
+const WHEEL_SCROLL_VALUE = 1;
 
 class FinalRadialSlider extends Component {
   state = {
@@ -75,6 +75,9 @@ class FinalRadialSlider extends Component {
       console.log("scrolling up: " + this.state.degree);
       tempDegree = tempDegree + WHEEL_SCROLL_VALUE;
       //   Guard to prevent reaching unexpected range
+      if(tempDegree > 220){
+        if(tempDegree>=270){tempDegree=-90}
+      }else if(tempDegree > 140 && tempDegree<180){ tempDegree = 141};
 
       this.setState({
         degree: tempDegree
@@ -83,12 +86,13 @@ class FinalRadialSlider extends Component {
     } else if (event.deltaY > 0) {
       console.log("scrolling down: " + this.state.degree);
       tempDegree = tempDegree - WHEEL_SCROLL_VALUE;
+      if(tempDegree <-90){ tempDegree = 270};
       //   Guard to prevent reaching unexpected range
 
       this.setState({
         degree: tempDegree
       });
-      this.setTransform(tempDegree % 360);
+      this.setTransform(tempDegree);
     }
   };
   //   THE ABOVE IS HANDLING MOUSE MOVEMENT
@@ -96,15 +100,36 @@ class FinalRadialSlider extends Component {
   setTransform = degree => {
     // limit max = 130 220, 180 +30 -30 => 150 - 210
 
-    if (degree > 139 && degree < 219) {
-      window.removeEventListener("mousemove", this.handleMouseMove);
-      console.log("Not listening!");
-    } else {
+    if (degree > 0 && degree < 140) {
       this.setState({
         transform: "rotate(" + degree + ",200,200)"
       });
-      //   console.log(this.state.transform);
-    }
+    } else if (degree <= 0 && degree >= -90) {
+      this.setState({
+        transform: "rotate(" + degree + ",200,200)"
+      });
+    } else if (degree >= 220 && degree <= 270) {
+      this.setState({
+        transform: "rotate(" + degree + ",200,200)"
+      });
+    } 
+    // OUT OF RANGE HANDLING
+    else if (degree >= 180 && degree < 220) {
+      this.setState({
+        transform: "rotate(" + 221 + ",200,200)"
+      });
+      window.removeEventListener("mousemove", this.handleMouseMove);
+      window.alert("You are moving out of range");
+      console.log("Stop listening for mousemove");
+    } 
+    else if (degree > 140 && degree <= 180) {
+      this.setState({
+        transform: "rotate(" + 139 + ",200,200)"
+      });
+      window.removeEventListener("mousemove", this.handleMouseMove);
+      window.alert("You are moving out of range");
+      console.log("Not listening!");
+    } 
   };
 
   // Render Methods
@@ -148,13 +173,13 @@ class FinalRadialSlider extends Component {
           </linearGradient>
           <linearGradient id="MaskGradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="white" />
-            <stop offset="87%" stopColor="white" />
-            <stop offset="88%" stopColor="black" />
+            <stop offset="89%" stopColor="white" />
+            <stop offset="90%" stopColor="black" />
             <stop offset="100%" stopColor="black" />
           </linearGradient>
           <linearGradient id="BlackOnly" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="white" stopOpacity="0" />
-            <stop offset="87%" stopColor="white" stopOpacity="0" />
+            <stop offset="88%" stopColor="white" stopOpacity="0" />
             <stop offset="88%" stopColor="#586369" />
             <stop offset="100%" stopColor="#586369" />
           </linearGradient>
@@ -170,18 +195,18 @@ class FinalRadialSlider extends Component {
         </mask>
         {/* GRADIENT PORTION TO INDICATE TEMPERATURE SELECTION */}
         <circle
-            cx={CENTER_X}
-            cy={CENTER_Y}
+          cx={CENTER_X}
+          cy={CENTER_Y}
           r={RADIUS}
           stroke="url('#HotColdGradient')"
           strokeWidth={CIRCLE_STROKE_WIDTH}
           fill="none"
           mask="url(#MaskPrompt)"
-        />        
-                {/* BLACK PORTION TO INDICATE NO SELECTION ZONE */}
-                <circle
-            cx={CENTER_X}
-            cy={CENTER_Y}
+        />
+        {/* BLACK PORTION TO INDICATE NO SELECTION ZONE */}
+        <circle
+          cx={CENTER_X}
+          cy={CENTER_Y}
           r={RADIUS}
           stroke="url('#BlackOnly')"
           strokeWidth={CIRCLE_STROKE_WIDTH}
@@ -200,6 +225,7 @@ class FinalRadialSlider extends Component {
           {this.renderSlider()}
           {this.renderSliderPrompt()}
         </svg>
+        <h2>{this.state.degree}</h2>
       </div>
     );
   }
