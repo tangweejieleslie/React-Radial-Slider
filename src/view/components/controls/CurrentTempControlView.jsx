@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import RadialSliderView from "../controls/RadialSliderView";
+import RadialSliderView from "./RadialSliderView";
 const WHEEL_SCROLL_VALUE = 10;
 
 class CurrentTempControl extends Component {

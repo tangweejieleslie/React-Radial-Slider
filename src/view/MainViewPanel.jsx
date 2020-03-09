@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import CurrentTempControl from "./components/controls/CurrentTempControl";
+import CurrentTempControl from "./components/controls/CurrentTempControlView";
 
 
 class MainViewPanel extends Component {
