@@ -12,7 +12,7 @@ class CurrentTempControl extends Component {
       sliderXPos: 123
     };
   }
-  
+
   render() {
     return (
       <div
@@ -80,7 +80,7 @@ class CurrentTempControl extends Component {
       isMouseMove: true
     });
 
-    console.log(event);
+    // console.log(event);
     let newPos = event.offsetX;
 
     if (newPos >= 10 && newPos <= 240) {

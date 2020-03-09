@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import TargetTemperatureView from "../info/TargetTemperatureView";
 import CurrentTemperatureView from "../info/CurrentTemperatureView";
 import ModeView from "../info/ModeView";
+import {getModeColor} from "../../../model/thermostat.js"
 
 import "./controls.css";
 
@@ -23,7 +24,8 @@ class RadialSliderView extends Component {
       isMouseDown: false,
       isMouseMove: false,
       targetTemperature: 72,
-      currentTemperature: 72
+      currentTemperature: 72,
+      modeColor: "#D6D6D6"
     };
   }
 
@@ -31,6 +33,12 @@ class RadialSliderView extends Component {
     return {
       currentTemperature: Number(nextProps.currentTemp)
     };
+  }
+
+  componentDidUpdate(prevProps){
+    if ( prevProps.currentTemp !== this.props.currentTemp ) {
+      this.updateMode();
+    }
   }
 
   handleMouseDown = event => {
@@ -148,7 +156,7 @@ class RadialSliderView extends Component {
       window.alert("Target temperature must be >=50 AND <=80");
     }
     this.computeTargetTemperature();
-    // this.updateMode();
+    this.updateMode();
   };
 
   computeTargetTemperature() {
@@ -175,7 +183,20 @@ class RadialSliderView extends Component {
     this.setState({
       targetTemperature: temperature
     });
-    // this.updateMode();
+    this.updateMode();
+  }
+
+  updateMode(){
+    console.log("updateMode");
+    let tgtTemp = Number(this.state.targetTemperature);
+    let curTemp = Number(this.state.currentTemperature)
+    let curModeColor = this.state.modeColor;
+    let modeColor = getModeColor(tgtTemp, curTemp, curModeColor);
+    console.log(modeColor);
+    this.setState({
+      modeColor: modeColor
+    })
+
   }
 
   // Render Methods

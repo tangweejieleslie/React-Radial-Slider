@@ -16,13 +16,13 @@ class ModeView extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     return {
-      modeColor: nextProps.modeColor
+      modeColor: nextProps.color
     };
   }
 
   // https://icons8.com/icons/set/sun
   renderSun() {
-    console.log(this.state.modeColor);
+    // console.log(this.state.modeColor);
     const logowidth = 30;
     const logoheight = 30;
 
