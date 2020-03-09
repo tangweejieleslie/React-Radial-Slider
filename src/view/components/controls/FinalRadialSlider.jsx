@@ -14,9 +14,8 @@ class FinalRadialSlider extends Component {
     super(props);
 
     this.state = {
-      degree: 0,
-      radian: 0,
-      transform: "rotate(0)",
+      degree: 64,
+      transform: "rotate(64,200,200)",
       isMouseDown: false,
       isMouseMove: false,
       currentTemperature: this.props.currentTemp,
@@ -327,6 +326,7 @@ class FinalRadialSlider extends Component {
 
   computeTargetTemperature() {
     let degree = this.state.degree;
+    console.log(degree);
 
     degree = Math.round(degree);
 
@@ -342,7 +342,7 @@ class FinalRadialSlider extends Component {
 
     // temp = 50 to 80
     let degreePerUnitTemp = 30 / 280;
-
+    
     let temperature = degreePerUnitTemp * degree + 50;
     temperature = Math.round(temperature);
     this.setState({
