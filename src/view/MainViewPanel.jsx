@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import CurrentTempControl from "./components/controls/CurrentTempControl";
 
 
-class ControlsPanelView extends Component {
+class MainViewPanel extends Component {
   constructor(props) {
     super(props);
 
@@ -31,4 +31,4 @@ class ControlsPanelView extends Component {
   }
 }
 
-export default ControlsPanelView;
+export default MainViewPanel;
