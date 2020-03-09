@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/tangweejieleslie.github.io/React-Radial-Slider/static/css/main.19dd2faf.chunk.css",
-    "main.js": "/tangweejieleslie.github.io/React-Radial-Slider/static/js/main.a8f61ebc.chunk.js",
-    "main.js.map": "/tangweejieleslie.github.io/React-Radial-Slider/static/js/main.a8f61ebc.chunk.js.map",
-    "runtime-main.js": "/tangweejieleslie.github.io/React-Radial-Slider/static/js/runtime-main.d97d08f6.js",
-    "runtime-main.js.map": "/tangweejieleslie.github.io/React-Radial-Slider/static/js/runtime-main.d97d08f6.js.map",
-    "static/js/2.00cabf9b.chunk.js": "/tangweejieleslie.github.io/React-Radial-Slider/static/js/2.00cabf9b.chunk.js",
-    "static/js/2.00cabf9b.chunk.js.map": "/tangweejieleslie.github.io/React-Radial-Slider/static/js/2.00cabf9b.chunk.js.map",
-    "index.html": "/tangweejieleslie.github.io/React-Radial-Slider/index.html",
-    "precache-manifest.ef5ed395a66c4ea3cf4c371b7e8b8ec7.js": "/tangweejieleslie.github.io/React-Radial-Slider/precache-manifest.ef5ed395a66c4ea3cf4c371b7e8b8ec7.js",
-    "service-worker.js": "/tangweejieleslie.github.io/React-Radial-Slider/service-worker.js",
-    "static/css/main.19dd2faf.chunk.css.map": "/tangweejieleslie.github.io/React-Radial-Slider/static/css/main.19dd2faf.chunk.css.map",
-    "static/js/2.00cabf9b.chunk.js.LICENSE.txt": "/tangweejieleslie.github.io/React-Radial-Slider/static/js/2.00cabf9b.chunk.js.LICENSE.txt"
+    "main.css": "/React-Radial-Slider/static/css/main.19dd2faf.chunk.css",
+    "main.js": "/React-Radial-Slider/static/js/main.bb2b6804.chunk.js",
+    "main.js.map": "/React-Radial-Slider/static/js/main.bb2b6804.chunk.js.map",
+    "runtime-main.js": "/React-Radial-Slider/static/js/runtime-main.7d0823b5.js",
+    "runtime-main.js.map": "/React-Radial-Slider/static/js/runtime-main.7d0823b5.js.map",
+    "static/js/2.00cabf9b.chunk.js": "/React-Radial-Slider/static/js/2.00cabf9b.chunk.js",
+    "static/js/2.00cabf9b.chunk.js.map": "/React-Radial-Slider/static/js/2.00cabf9b.chunk.js.map",
+    "index.html": "/React-Radial-Slider/index.html",
+    "precache-manifest.a1ff65a709627cd2ac5c6fbc56fd2bd8.js": "/React-Radial-Slider/precache-manifest.a1ff65a709627cd2ac5c6fbc56fd2bd8.js",
+    "service-worker.js": "/React-Radial-Slider/service-worker.js",
+    "static/css/main.19dd2faf.chunk.css.map": "/React-Radial-Slider/static/css/main.19dd2faf.chunk.css.map",
+    "static/js/2.00cabf9b.chunk.js.LICENSE.txt": "/React-Radial-Slider/static/js/2.00cabf9b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.d97d08f6.js",
+    "static/js/runtime-main.7d0823b5.js",
     "static/js/2.00cabf9b.chunk.js",
     "static/css/main.19dd2faf.chunk.css",
-    "static/js/main.a8f61ebc.chunk.js"
+    "static/js/main.bb2b6804.chunk.js"
   ]
 }
