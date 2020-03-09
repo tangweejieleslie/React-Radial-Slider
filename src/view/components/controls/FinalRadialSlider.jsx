@@ -72,28 +72,28 @@ class FinalRadialSlider extends Component {
 
     var tempDegree = this.state.degree;
     if (event.deltaY < 0) {
-      console.log("scrolling up: " + this.state.degree);
+      // console.log("scrolling up: " + this.state.degree);
       tempDegree = tempDegree + WHEEL_SCROLL_VALUE;
       //   Guard to prevent reaching unexpected range
       if(tempDegree > 220){
         if(tempDegree>=270){tempDegree=-90}
-      }else if(tempDegree > 140 && tempDegree<180){ tempDegree = 140};
-
-      this.setState({
-        degree: tempDegree
-      });
-      this.setTransform(tempDegree);
+      }
+      else if(tempDegree > 140 && tempDegree<180){ tempDegree = 140};
+        this.setState({
+          degree: tempDegree
+        });
+        this.setTransform(tempDegree);
     } else if (event.deltaY > 0) {
-      console.log("scrolling down: " + this.state.degree);
-      tempDegree = tempDegree - WHEEL_SCROLL_VALUE;
-      if(tempDegree <-90){ tempDegree = 270};
-      if(tempDegree >180 && tempDegree <=220){ tempDegree = 220};
-      //   Guard to prevent reaching unexpected range
+        // console.log("scrolling down: " + this.state.degree);
+        tempDegree = tempDegree - WHEEL_SCROLL_VALUE;
+        if(tempDegree <-90){ tempDegree = 270};
+        if(tempDegree >180 && tempDegree <=220){ tempDegree = 220};
+        //   Guard to prevent reaching unexpected range
 
-      this.setState({
-        degree: tempDegree
-      });
-      this.setTransform(tempDegree);
+        this.setState({
+          degree: tempDegree
+        });
+        this.setTransform(tempDegree);
     }
   };
   //   THE ABOVE IS HANDLING MOUSE MOVEMENT
@@ -118,21 +118,21 @@ class FinalRadialSlider extends Component {
     else if (degree >= 180 && degree < 220) {
       window.removeEventListener("mousemove", this.handleMouseMove);
       this.setState({
-        transform: "rotate(" + 220 + ",200,200)",
+        transform: "rotate(" + 222 + ",200,200)",
         degree: 220
       });
       
       window.alert("You are moving out of range");
-      console.log("Stop listening for mousemove");
+      // console.log("Stop listening for mousemove");
     } 
     else if (degree > 140 && degree <= 180) {
       window.removeEventListener("mousemove", this.handleMouseMove);
       this.setState({
-        transform: "rotate(" + 140 + ",200,200)",
+        transform: "rotate(" + 138 + ",200,200)",
         degree: 140
       });
       window.alert("You are moving out of range");
-      console.log("Not listening!");
+      // console.log("Not listening!");
     } 
   };
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import GradientPrompt from './components/controls/GradientPrompt'
 // import SmallEvent from './components/controls/SmallEvent'
 // import CustomEvent from './components/controls/CustomEvent'
+import RadialSliderView from './components/controls/RadialSliderView'
 import FinalRadialSlider from './components/controls/FinalRadialSlider'
 
 class ControlsPanel extends Component {
