@@ -15,25 +15,20 @@ class FinalRadialSlider extends Component {
 
     this.state = {
       degree: 0,
+      radian: 0,
       transform: "rotate(0)",
       isMouseDown: false,
       isMouseMove: false,
       currentTemperature: this.props.currentTemp,
-      targetTemperature: "70"
+      targetTemperature: "72"
     };
   }
 
-  componentWillReceiveProps(props) {
-    this.setState({
-      currentTemperature: this.props.currentTemp
-    });
-  }
-
   static getDerivedStateFromProps(nextProps, prevState) {
-      return {
-        currentTemperature: nextProps.currentTemp
-      };
-    }
+    return {
+      currentTemperature: nextProps.currentTemp
+    };
+  }
 
   handleMouseDown = event => {
     // console.log("detect mouse down");
@@ -55,23 +50,20 @@ class FinalRadialSlider extends Component {
     const node = document.getElementById("SliderArea").getBoundingClientRect();
     const CircleCenterX = (node.left + node.right) / 2;
     const CircleCenterY = (node.top + node.bottom) / 2;
-    // console.log(node);
-    // console.log(CircleCenterX, CircleCenterY);
-    // console.log(event);
+
+    let radian = Math.atan2(
+      event.pageY - CircleCenterY,
+      event.pageX - CircleCenterX
+    );
 
     let degree;
     // https://blog.plover.com/prog/atan2.html
-    degree =
-      90 +
-      (Math.atan2(event.pageY - CircleCenterY, event.pageX - CircleCenterX) *
-        180) /
-        Math.PI;
-
-    this.setTransform(degree);
+    degree = 90 + (radian * 180) / Math.PI;
 
     this.setState({
       degree: degree
     });
+    this.setTransform(degree);
   };
 
   handleMouseUp = event => {
@@ -85,7 +77,6 @@ class FinalRadialSlider extends Component {
     window.removeEventListener("mouseup", this.handleMouseUp);
   };
 
-  //   TODO: Fix scrolling bug
   handleWheel = event => {
     // event.preventDefault();
 
@@ -122,7 +113,6 @@ class FinalRadialSlider extends Component {
       this.setTransform(tempDegree);
     }
   };
-  //   THE ABOVE IS HANDLING MOUSE MOVEMENT
 
   setTransform = degree => {
     // limit max = 130 220, 180 +30 -30 => 150 - 210
@@ -159,6 +149,7 @@ class FinalRadialSlider extends Component {
       window.alert("You are moving out of range");
       // console.log("Not listening!");
     }
+    this.computeTargetTemperature();
   };
 
   // Render Methods
@@ -332,6 +323,31 @@ class FinalRadialSlider extends Component {
         <path d="M 11 0 L 11 3 L 13 3 L 13 0 L 11 0 z M 4.2226562 2.8085938 L 2.8085938 4.2226562 L 4.9296875 6.34375 L 6.34375 4.9296875 L 4.2226562 2.8085938 z M 19.777344 2.8085938 L 17.65625 4.9296875 L 19.070312 6.34375 L 21.191406 4.2226562 L 19.777344 2.8085938 z M 12 5 C 8.1458514 5 5 8.1458514 5 12 C 5 15.854149 8.1458514 19 12 19 C 15.854149 19 19 15.854149 19 12 C 19 8.1458514 15.854149 5 12 5 z M 12 7 C 14.773268 7 17 9.2267316 17 12 C 17 14.773268 14.773268 17 12 17 C 9.2267316 17 7 14.773268 7 12 C 7 9.2267316 9.2267316 7 12 7 z M 0 11 L 0 13 L 3 13 L 3 11 L 0 11 z M 21 11 L 21 13 L 24 13 L 24 11 L 21 11 z M 4.9296875 17.65625 L 2.8085938 19.777344 L 4.2226562 21.191406 L 6.34375 19.070312 L 4.9296875 17.65625 z M 19.070312 17.65625 L 17.65625 19.070312 L 19.777344 21.191406 L 21.191406 19.777344 L 19.070312 17.65625 z M 11 21 L 11 24 L 13 24 L 13 21 L 11 21 z" />
       </svg>
     );
+  }
+
+  computeTargetTemperature() {
+    let degree = this.state.degree;
+
+    degree = Math.round(degree);
+
+    // Transform the above mapping into some continuum: the range is now from -140 to 140
+    degree = degree + 141; // now the range = 1 to 281
+    if (degree > 220) {
+      degree = degree - 360;
+    }
+
+    if (degree < 0) {
+      degree = degree + 360;
+    }
+
+    // temp = 50 to 80
+    let degreePerUnitTemp = 30 / 280;
+
+    let temperature = degreePerUnitTemp * degree + 50;
+    temperature = Math.round(temperature);
+    this.setState({
+      targetTemperature: temperature
+    });
   }
 
   render() {

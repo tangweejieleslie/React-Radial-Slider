@@ -6,7 +6,7 @@ class ControlsPanel extends Component {
     super(props);
 
     this.state = {
-      currentTemp: 70,
+      currentTemp: 72,
       temporaryCurrentTemperature: 0
     };
 
@@ -14,7 +14,7 @@ class ControlsPanel extends Component {
 
   handleChange = event => {
     // event.preventDefault();
-    console.log(event.target.value);
+    // console.log(event.target.value);
     this.setState({ temporaryCurrentTemperature: event.target.value });
   };
 
