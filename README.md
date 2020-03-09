@@ -7,7 +7,7 @@ Github Pages: https://tangweejieleslie.github.io/React-Radial-Slider/
 ### Description of Files and Folders
 
 In this submission, the folder structure (and important files) are as follow:
-
+```
 src/
 ├── model/
 |   └── thermostat.js
@@ -25,7 +25,7 @@ src/
 |── App.js
 └── MachineConfig.js
 
-
+```
 
 
 
