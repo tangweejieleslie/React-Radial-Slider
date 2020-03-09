@@ -3,8 +3,13 @@ import TargetTemperatureView from "../info/TargetTemperatureView";
 import CurrentTemperatureView from "../info/CurrentTemperatureView";
 import ModeView from "../info/ModeView";
 import {getModeColor} from "../../../model/thermostat.js"
-
 import "./controls.css";
+
+import MachineConfig from '../../../MachineConfig';
+import { useMachine } from '@xstate/react/';
+import { Machine } from "xstate";
+
+const ThermostatMachine = new Machine(MachineConfig);
 
 const SVG_WIDTH = 400;
 const SVG_HEIGHT = 400;
@@ -28,6 +33,9 @@ class RadialSliderView extends Component {
       modeColor: "#D6D6D6"
     };
   }
+
+
+
 
   static getDerivedStateFromProps(nextProps, prevState) {
     return {
@@ -184,12 +192,12 @@ class RadialSliderView extends Component {
   }
 
   updateMode(){
-    console.log("updateMode");
+    // console.log("updateMode");
     let tgtTemp = Number(this.state.targetTemperature);
     let curTemp = Number(this.state.currentTemperature)
     let curModeColor = this.state.modeColor;
     let modeColor = getModeColor(tgtTemp, curTemp, curModeColor);
-    console.log(modeColor);
+    // console.log(modeColor);
     this.setState({
       modeColor: modeColor
     })
@@ -310,6 +318,7 @@ class RadialSliderView extends Component {
   }
 
   render() {
+       
     return (
       <svg height={SVG_HEIGHT} width={SVG_WIDTH} id="SVG_BOX">
         {this.renderBackground()}

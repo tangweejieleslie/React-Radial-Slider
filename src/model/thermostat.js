@@ -1,6 +1,6 @@
 export function getModeColor(targetTemperature, currentTemperature, currentModeColor) {
 
-    console.log("computing mode");
+    // console.log("computing mode");
 
     const dt = 2;
     const dtHeat = 1;
@@ -8,7 +8,7 @@ export function getModeColor(targetTemperature, currentTemperature, currentModeC
 
     let modeColor = "";
 
-    console.log(modeColor);
+    // console.log(modeColor);
     let UpperBoundTemp =
         targetTemperature + dt + dtCool;
     let LowerBoundTemp =
@@ -30,10 +30,10 @@ export function getModeColor(targetTemperature, currentTemperature, currentModeC
     ) {
         modeColor = "#D6D6D6";
     } else {
-        console.log("no category")
+        // console.log("no category")
         modeColor = currentModeColor;
     }
 
-    console.log(modeColor);
+    // console.log(modeColor);
     return modeColor;
 }

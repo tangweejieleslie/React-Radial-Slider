@@ -53,7 +53,7 @@ By structuring the data flow from parents to children, the code gets simplified.
 This is the entry point of the application. 
 
 ## arc/MachineConfig.js
-This contains the state machine configuration for xstate
+This contains the state machine configuration for xstate.
 
 
 <hr>

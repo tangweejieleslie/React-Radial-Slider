@@ -22,8 +22,8 @@ const MachineConfig = {
                     states: {
                         ListenForTTChange: {
                             on: {
-                                TT_change: "TT_CheckTemp",
-                                TT_noChange: "ListenForTTChange"
+                                TT_change: {target:"TT_CheckTemp", actions:["TT_CheckTemp"]},
+                                TT_noChange: {target:"ListenForTTChange", actions:["ListenForTTChange"]}
                             }
                         },
                         TT_CheckTemp: {

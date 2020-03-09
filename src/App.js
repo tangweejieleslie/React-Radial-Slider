@@ -5,10 +5,8 @@ import MainViewPanel from './view/MainViewPanel';
 // import { useMachine } from '@xstate/react/';
 // import MachineConfig from './MachineConfig';
 
-
-
-
 function App() {
+
   return (
     <div>
       <MainViewPanel></MainViewPanel>
