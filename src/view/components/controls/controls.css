@@ -22,3 +22,17 @@
 .OFFLOGO{
     color: #D6D6D6;
 }
+
+h1{
+    padding: 2px;
+    margin: 2px;
+}
+h3{
+    padding: 2px;
+    margin: 2px;
+}
+
+.tempRange{
+    font-size: 12px;
+    /* font-weight: 500; */
+}

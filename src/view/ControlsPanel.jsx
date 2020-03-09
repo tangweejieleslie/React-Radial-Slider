@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import FinalRadialSlider from "./components/controls/FinalRadialSlider";
+import "./components/controls/controls.css";
 
 const WHEEL_SCROLL_VALUE = 10;
 
@@ -131,10 +132,10 @@ class ControlsPanel extends Component {
           alignItems: "center"
         }}
       >
-        <h2>Change Current Temperature</h2>
+        
         <form>
           <input type="text" onChange={this.handleChange} value={this.state.temporaryCurrentTemperature}></input>
-          <button onClick={this.updateCurrentTemp}>Update Temperature</button>
+          <button onClick={this.updateCurrentTemp}>Update Current Temperature Temperature</button>
           {/* {this.state.currentTemp} */}
         </form>
       </div>
@@ -148,7 +149,7 @@ class ControlsPanel extends Component {
           id="SliderArea"
           cx={this.state.sliderXPos}
           cy={25}
-          r={10}
+          r={8}
           strokeWidth={1}
           stroke="#1a1a1a"
           fill="#D6D6D6"
@@ -206,11 +207,17 @@ class ControlsPanel extends Component {
           <FinalRadialSlider
             currentTemp={this.state.currentTemp}
           ></FinalRadialSlider>
-          {this.renderControls()}
+          <h2>Change Current Temperature</h2>
+          <div>
+          <strong>32F</strong>
           <svg width="250" height="50">
             {this.renderSliderLine()}
             {this.renderSliderButton()}
           </svg>
+          <strong>100F</strong>
+          </div>
+
+          {this.renderControls()}
         </div>
       </div>
     );

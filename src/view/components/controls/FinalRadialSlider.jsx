@@ -148,7 +148,7 @@ class FinalRadialSlider extends Component {
         degree: 220
       });
 
-      window.alert("You are moving out of range");
+      window.alert("Target temperature must be >=50 AND <=80");
       // console.log("Stop listening for mousemove");
     } else if (degree > 140 && degree <= 180) {
       window.removeEventListener("mousemove", this.handleMouseMove);
@@ -156,7 +156,7 @@ class FinalRadialSlider extends Component {
         transform: "rotate(" + 138 + ",200,200)",
         degree: 140
       });
-      window.alert("You are moving out of range");
+      window.alert("Target temperature must be >=50 AND <=80");
       // console.log("Not listening!");
     }
     this.computeTargetTemperature();
@@ -401,8 +401,16 @@ class FinalRadialSlider extends Component {
 
   render() {
     return (
-      <div>
-        <h1> Slider </h1>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <h1> Thermostat Widget </h1>
+        <h3> Done by: Tang Wee Jie Leslie A0160164N</h3>
         <div className="flexbox">
           <svg height={SVG_HEIGHT} width={SVG_WIDTH} id="SVG_BOX">
             {this.renderBackground()}
