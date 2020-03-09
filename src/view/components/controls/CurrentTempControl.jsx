@@ -41,18 +41,17 @@ class CurrentTempControl extends Component {
     );
   }
   handleWheel = event => {
-    // event.preventDefault();
 
     var newPos = this.state.sliderXPos;
     if (event.deltaY < 0) {
-      // console.log("++");
+
       if (newPos <= 230) {
         this.setState({
           sliderXPos: newPos + WHEEL_SCROLL_VALUE
         });
       }
     } else if (event.deltaY > 0) {
-      // console.log("--");
+
       if (newPos >= 20) {
         this.setState({
           sliderXPos: newPos - WHEEL_SCROLL_VALUE
@@ -64,7 +63,6 @@ class CurrentTempControl extends Component {
   };
 
   handleMouseDown = event => {
-    // console.log("detect mouse down");
     event.preventDefault();
     window.addEventListener("mousemove", this.handleMouseMove);
     window.addEventListener("mouseup", this.handleMouseUp);
@@ -75,12 +73,10 @@ class CurrentTempControl extends Component {
 
   handleMouseMove = event => {
     event.preventDefault();
-    // console.log("detect mouse move");
     this.setState({
       isMouseMove: true
     });
 
-    // console.log(event);
     let newPos = event.offsetX;
 
     if (newPos >= 10 && newPos <= 240) {
@@ -97,9 +93,7 @@ class CurrentTempControl extends Component {
     let newTemp = 0;
 
     let x = this.state.sliderXPos;
-    // temp = x/210 * 68
 
-    // console.log(x);
     newTemp = (x / 220) * 68;
     newTemp = Math.round(newTemp) + 28;
 
@@ -126,8 +120,6 @@ class CurrentTempControl extends Component {
   };
 
   handleChange = event => {
-    // event.preventDefault();
-    // console.log(event.target.value);
     let newCurrentTemp = event.target.value;
     this.setState({ temporaryCurrentTemperature: newCurrentTemp });
   };
@@ -161,7 +153,6 @@ class CurrentTempControl extends Component {
         ></input>
         <br></br>
         <button onClick={this.updateCurrentTemp}>Update</button>
-        {/* {this.state.currentTemp} */}
       </form>
     );
   }
@@ -200,7 +191,6 @@ class CurrentTempControl extends Component {
         <line
           stroke="#bbbbbb"
           strokeWidth="1"
-          // fill="black"
           x1="0"
           x2="500"
           y1="25"

@@ -42,7 +42,6 @@ class RadialSliderView extends Component {
   }
 
   handleMouseDown = event => {
-    // console.log("detect mouse down");
     event.preventDefault();
     window.addEventListener("mousemove", this.handleMouseMove);
     window.addEventListener("mouseup", this.handleMouseUp);
@@ -53,7 +52,6 @@ class RadialSliderView extends Component {
 
   handleMouseMove = event => {
     event.preventDefault();
-    // console.log("detect mouse move");
     this.setState({
       isMouseMove: true
     });
@@ -74,7 +72,7 @@ class RadialSliderView extends Component {
     this.setState({
       degree: degree
     });
-    this.setTransform(degree); //TODO: hook up
+    this.setTransform(degree); 
   };
 
   handleMouseUp = event => {
@@ -161,7 +159,6 @@ class RadialSliderView extends Component {
 
   computeTargetTemperature() {
     let degree = this.state.degree;
-    // console.log(degree);
 
     degree = Math.round(degree);
 

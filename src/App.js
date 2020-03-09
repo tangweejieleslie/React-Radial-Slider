@@ -4,6 +4,9 @@ import { Machine } from 'xstate';
 import { useMachine } from '@xstate/react/';
 import MainViewPanel from './view/MainViewPanel';
 
+// https://xstate.js.org/docs/guides/parallel.html
+// https://xstate.js.org/docs/guides/hierarchical.html
+
 const CheckModeStates = {
   initial: 'CheckMode',
   states: {

@@ -13,6 +13,7 @@ class CurrentTemperatureView extends Component {
     };
   }
 
+  // https://alligator.io/react/get-derived-state/
   static getDerivedStateFromProps(nextProps, prevState) {
     return {
       currentTemperature: Number(nextProps.currentTemp)

@@ -22,7 +22,6 @@ class ModeView extends Component {
 
   // https://icons8.com/icons/set/sun
   renderSun() {
-    // console.log(this.state.modeColor);
     const logowidth = 30;
     const logoheight = 30;
 
