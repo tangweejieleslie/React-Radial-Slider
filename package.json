@@ -1,8 +1,8 @@
 {
-  "homepage": "http://tangweejieleslie.github.io/React-Radial-Slider",
   "name": "radial",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://tangweejieleslie.github.io/React-Radial-Slider",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",

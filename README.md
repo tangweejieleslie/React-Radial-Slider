@@ -1,3 +1,35 @@
+## README for CS3249 
+For submission, I've only included the source files rather than the entire repository. 
+
+The repository is at: https://github.com/tangweejieleslie/React-Radial-Slider/tree/master
+Github Pages: https://tangweejieleslie.github.io/React-Radial-Slider/
+
+### Description of Files and Folders
+
+In this submission, the folder structure (and important files) are as follow:
+
+src/
+├── model/
+|   └── thermostat.js
+├── view/
+|   ├── components/
+|   |   └── controls/
+|   |   |   ├── controls.css
+|   |   |   ├── CurrentTempControlView.jsx
+|   |   |   └── RadialSliderView.jsx
+|   |   └── info/
+|   |       ├── CurrentTemperatureView.jsx
+|   |       ├── ModeView.jsx
+|   |       └── TargetTemperatureView.jsx
+|   └── header.html
+|── App.js
+└── MachineConfig.js
+
+
+
+
+
+<hr>
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
