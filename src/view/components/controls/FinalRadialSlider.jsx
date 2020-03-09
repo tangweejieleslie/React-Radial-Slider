@@ -19,18 +19,18 @@ class FinalRadialSlider extends Component {
       isMouseDown: false,
       isMouseMove: false,
       currentTemperature: this.props.currentTemp,
-      targetTemperature: "72",
+      targetTemperature: 72,
       mode: "off",
       modeColor: "#D6D6D6",
-      dt: 2,
+      dt: 2.0,
       dtCool: 1.5,
-      dtHeat: 1
+      dtHeat: 1.0
     };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     return {
-      currentTemperature: nextProps.currentTemp
+      currentTemperature: Number(nextProps.currentTemp)
     };  
   }
   componentDidUpdate(prevProps){
@@ -336,7 +336,7 @@ class FinalRadialSlider extends Component {
 
   computeTargetTemperature() {
     let degree = this.state.degree;
-    console.log(degree);
+    // console.log(degree);
 
     degree = Math.round(degree);
 
@@ -358,18 +358,23 @@ class FinalRadialSlider extends Component {
     this.setState({
       targetTemperature: temperature
     });
+    this.updateMode();
   }
 
   updateMode(){
-    let mode = "off"
+    let mode;
+    console.log(this.state);
 
     let UpperBoundTemp = this.state.targetTemperature + this.state.dt + this.state.dtCool;
     let LowerBoundTemp = this.state.targetTemperature - this.state.dt - this.state.dtHeat;
     let OffUpperBound = this.state.targetTemperature + (this.state.dt - this.state.dtCool);
     let OffLowerBound = this.state.targetTemperature - (this.state.dt - this.state.dtHeat);
+    console.log(this.state.targetTemperature);
+
+    // console.log("Upperbound: " + UpperBoundTemp + " Lower Bound:" + LowerBoundTemp + " Off lower: " + OffLowerBound + " Off Upper: " +  OffUpperBound);
 
     if(this.state.currentTemperature > UpperBoundTemp) {
-
+      console.log(this.state.currentTemperature + "," + UpperBoundTemp );
       mode = "cool"; 
       this.setState({
         mode: mode,
@@ -378,6 +383,7 @@ class FinalRadialSlider extends Component {
     }
     else if (this.state.currentTemperature < LowerBoundTemp) {
       mode = "heat";
+      console.log(2);
       this.setState({
         mode: mode,
         modeColor: "#E4656E"
@@ -385,6 +391,7 @@ class FinalRadialSlider extends Component {
     }
     else if (this.state.currentTemperature < OffUpperBound && this.state.currentTemperature > OffLowerBound) { 
       mode="off";
+      console.log(this.state.currentTemperature + ", " + OffUpperBound + "," + OffLowerBound);
       this.setState({
         mode: mode,
         modeColor: "#D6D6D6"

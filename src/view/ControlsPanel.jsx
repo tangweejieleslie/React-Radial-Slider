@@ -15,13 +15,23 @@ class ControlsPanel extends Component {
   handleChange = event => {
     // event.preventDefault();
     // console.log(event.target.value);
-    this.setState({ temporaryCurrentTemperature: event.target.value });
+    let newCurrentTemp = event.target.value;
+    this.setState({ temporaryCurrentTemperature:newCurrentTemp});
+    
   };
 
   updateCurrentTemp = event => {
     event.preventDefault();
-    this.setState({ currentTemp: this.state.temporaryCurrentTemperature });
-    this.setState({ currentTemp: this.state.temporaryCurrentTemperature });
+    let newCurrentTemp = this.state.temporaryCurrentTemperature;
+
+    if(newCurrentTemp >=32 && newCurrentTemp <=100){
+      this.setState({ currentTemp: this.state.temporaryCurrentTemperature });
+      this.setState({ currentTemp: this.state.temporaryCurrentTemperature });
+    } else {
+      window.alert("Current temperature must be >= 32 AND <=100")
+    }
+
+
   };
 
   renderControls() {
